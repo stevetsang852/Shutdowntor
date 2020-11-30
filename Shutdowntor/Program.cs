@@ -39,13 +39,15 @@ namespace Shutdowntor
 
                     string argDatetime = ArgsReader.Instance.GetArg<string>(ArgsReader.ArgOption.datetime);
 
-                    bool autoStart = ArgsReader.Instance.CheckArg(ArgsReader.ArgOption.auto);
-                    bool autoSetDateTime = ArgsReader.Instance.CheckArg(ArgsReader.ArgOption.datetime);
+                    //bool autoStart = ArgsReader.Instance.CheckArg(ArgsReader.ArgOption.auto);
+                    bool autoStart = ArgsReader.Instance.GetArg<bool>(ArgsReader.ArgOption.auto);
+                    //bool autoSetDateTime = ArgsReader.Instance.CheckArg(ArgsReader.ArgOption.datetime);
+                    bool autoSetDateTime = ArgsReader.Instance.GetArg<bool>(ArgsReader.ArgOption.datetime);
 
-                    string action = ArgsReader.Instance.GetArg<string>(ArgsReader.ArgOption.auto); ;
+                    string action = ArgsReader.Instance.GetArg<string>(ArgsReader.ArgOption.auto);
                     DateTime targetDateTime = DateTime.Now.AddDays(1);
                     
-                    if (argDatetime.Length == Global.DateTimeFormat.Length)
+                    if (autoSetDateTime && argDatetime.Length == Global.DateTimeFormat.Length)
                     {
                         targetDateTime = DateTime.ParseExact(argDatetime, Global.DateTimeFormat, null);
                     }
@@ -57,7 +59,7 @@ namespace Shutdowntor
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

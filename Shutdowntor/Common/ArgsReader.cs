@@ -49,7 +49,7 @@ namespace Shutdowntor.Common
         #endregion
 
         #region Methods
-        private static readonly string NULLSTRING = "***\t\t\tNULL\t\t\t***";
+        private static readonly string NULLSTRING = "***\t\t\tNULLARGSTRING\t\t\t***";
         private static Dictionary<string, Object> argsMap;
         private string prefix = "/";
         private char splitChar = ':';
@@ -142,6 +142,10 @@ namespace Shutdowntor.Common
         {
             Object obj = new object();
             argsMap.TryGetValue(argOption.ToString(), out obj);
+            if (typeof(T) == typeof(bool))
+            {
+                obj = !isNullString(obj.ToString());
+            }
             return (T)obj;
         }
 
