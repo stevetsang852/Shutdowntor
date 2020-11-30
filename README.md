@@ -27,4 +27,4 @@ HH: Hour<br/>
 mm: minute<br/>
 ss: seconds<br/>
 
-Currently only support two actions, Reboot and Shutdown.
+Currently only support two actions, Shutdown or Reboot.
