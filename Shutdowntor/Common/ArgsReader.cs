@@ -18,12 +18,6 @@ namespace Shutdowntor.Common
             auto,
             datetime
         }
-
-        public enum autoOption
-        {
-            s,
-            r
-        }
         #endregion
 
         #region Instance
@@ -142,7 +136,11 @@ namespace Shutdowntor.Common
         {
             Object obj = new object();
             argsMap.TryGetValue(argOption.ToString(), out obj);
-            if (typeof(T) == typeof(bool))
+            if (obj == null)
+                throw new Exception("Plesae RegisterArg Before Call Read Method");
+
+            Type valueType = obj.GetType();
+            if ((obj.GetType() == typeof(string) || obj.GetType() == typeof(String)) &&typeof(T) == typeof(bool))
             {
                 obj = !isNullString(obj.ToString());
             }
