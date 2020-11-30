@@ -9,22 +9,22 @@ Support args call by cmd;
 
 Args options(optional):
 
-/debug&nbsp;
+/debug<br/>
 Write debug log.
 
-/hide&nbsp;
+/hide<br/>
 Hide the UI, but you can find the app by small icon.
 
-/auto:[r]/[s]&nbsp;
+/auto:[r]/[s]<br/>
 Auto start the app r for reboot, s for shutdown
 
-/datetime:[yyyyMMddHHmmss]&nbsp;
+/datetime:[yyyyMMddHHmmss]<br/>
 Set the date and time for do the action.&nbsp;
-yyyy: year&nbsp;
-MM: Month&nbsp;
-dd: day&nbsp;
-HH: Hour&nbsp;
-mm: minute&nbsp;
-ss: seconds&nbsp;
+yyyy: year<br/>
+MM: Month<br/>
+dd: day
+HH: Hour
+mm: minute
+ss: seconds
 
 Currently only support two actions, Reboot and Shutdown.
