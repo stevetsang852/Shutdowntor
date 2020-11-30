@@ -20,11 +20,11 @@ Auto start the app r for reboot, s for shutdown
 
 /datetime:[yyyyMMddHHmmss]<br/>
 Set the date and time for do the action.<br/>
-yyyy: year<br/>
+yyyy: Year<br/>
 MM: Month<br/>
-dd: day<br/>
+dd: Day<br/>
 HH: Hour<br/>
-mm: minute<br/>
-ss: seconds<br/>
+mm: Minute<br/>
+ss: Seconds<br/>
 
 Currently only support two actions, Shutdown or Reboot.
