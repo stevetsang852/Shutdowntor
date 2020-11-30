@@ -1,6 +1,6 @@
 # Shutdowntor
 
-Function:&nbsp;
+Function:<br/>
 Scheduled the action to do. And do it.
 
 IDE:  Visual Studio 2019
@@ -19,12 +19,12 @@ Hide the UI, but you can find the app by small icon.
 Auto start the app r for reboot, s for shutdown
 
 /datetime:[yyyyMMddHHmmss]<br/>
-Set the date and time for do the action.&nbsp;
+Set the date and time for do the action.<br/>
 yyyy: year<br/>
 MM: Month<br/>
-dd: day
-HH: Hour
-mm: minute
-ss: seconds
+dd: day<br/>
+HH: Hour<br/>
+mm: minute<br/>
+ss: seconds<br/>
 
 Currently only support two actions, Reboot and Shutdown.
