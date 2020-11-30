@@ -75,10 +75,7 @@ namespace Shutdowntor.Common
         public bool CheckArg(ArgOption argOption)
         {
             bool isExist = false;
-            for (int i = 0; i < args.Length; i++)
-            {
-                isExist = isExist || GetKeyWithOutPrefix(args[i]).StartsWith(argOption.ToString());
-            }
+            isExist = args.Where(i => GetKeyWithOutPrefix(i.ToString()).StartsWith(argOption.ToString())).FirstOrDefault()!=null;
             return isExist;
         }
 
@@ -137,7 +134,7 @@ namespace Shutdowntor.Common
             Object obj = new object();
             argsMap.TryGetValue(argOption.ToString(), out obj);
             if (obj == null)
-                throw new Exception("Plesae RegisterArg Before Call Read Method");
+                throw new Exception("Plesae RegisterArg Before Call GetArg Method");
 
             Type valueType = obj.GetType();
             if ((obj.GetType() == typeof(string) || obj.GetType() == typeof(String)) &&typeof(T) == typeof(bool))
