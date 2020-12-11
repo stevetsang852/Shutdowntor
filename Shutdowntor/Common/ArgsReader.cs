@@ -42,12 +42,13 @@ namespace Shutdowntor.Common
         }
         #endregion
 
-        #region Methods
+        #region ArgsReader
         private static readonly string NULLSTRING = "***\t\t\tNULLARGSTRING\t\t\t***";
         private static Dictionary<string, Object> argsMap;
         private string prefix = "/";
         private char splitChar = ':';
         private string[] args;
+        public Exception LastException;
 
         public int Read(string[] args)
         {
@@ -56,26 +57,27 @@ namespace Shutdowntor.Common
                 throw new Exception("Plesae RegisterArg Before Call Read Method");
             }
             this.args = args;
-            int Geted = 0;
+            int ret = 0;
             for (int i = 0; i < args.Length; i++)
             {
                 try
                 {
                     SetToMap(args[i].ToLower());
-                    Geted++;
+                    ret++;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Geted = -1;
+                    LastException = e;
+                    ret = -1;
                 }
             }
-            return Geted;
+            return ret;
         }
 
         public bool CheckArg(ArgOption argOption)
         {
             bool isExist = false;
-            isExist = args.Where(i => GetKeyWithOutPrefix(i.ToString()).StartsWith(argOption.ToString())).FirstOrDefault()!=null;
+            isExist = args.Where(i => GetKeyWithOutPrefix(i.ToString()).StartsWith(argOption.ToString())).FirstOrDefault() != null;
             return isExist;
         }
 
@@ -83,16 +85,16 @@ namespace Shutdowntor.Common
         {
             string keyWithOutprefix;
             keyWithOutprefix = GetKeyWithOutPrefix(arg.Split(splitChar)[0]);
-            
+
             if (argsMap.ContainsKey(keyWithOutprefix))
             {
                 Object valueObj = argsMap[keyWithOutprefix];
                 Type valueType = valueObj.GetType();
-                if(valueType == typeof(bool))
+                if (valueType == typeof(bool))
                 {
                     argsMap[keyWithOutprefix] = true;
                 }
-                else 
+                else
                 {
                     object value = arg.Split(splitChar)[1];
                     var converter = TypeDescriptor.GetConverter(valueType);
@@ -103,12 +105,12 @@ namespace Shutdowntor.Common
 
         private string GetKeyWithOutPrefix(string argOption)
         {
-            return argOption.Replace(prefix, "");
+            return argOption.ToString().ToLower().Replace(prefix, "");
         }
 
         private string GetKeyWithPrefix(ArgOption argOption)
         {
-            return prefix + argOption.ToString();
+            return prefix + argOption.ToString().ToLower();
         }
 
         public void RegisterArg<T>(ArgOption argOption)
@@ -126,22 +128,43 @@ namespace Shutdowntor.Common
             {
                 o = (T)Activator.CreateInstance(typeof(T));
             }
-            argsMap.Add(argOption.ToString(), o);
+            argsMap.Add(argOption.ToString().ToLower(), o);
         }
 
         public T GetArg<T>(ArgOption argOption)
         {
             Object obj = new object();
-            argsMap.TryGetValue(argOption.ToString(), out obj);
+            argsMap.TryGetValue(argOption.ToString().ToLower(), out obj);
             if (obj == null)
                 throw new Exception("Plesae RegisterArg Before Call GetArg Method");
 
             Type valueType = obj.GetType();
-            if ((obj.GetType() == typeof(string) || obj.GetType() == typeof(String)) &&typeof(T) == typeof(bool))
+            if ((obj.GetType() == typeof(string) || obj.GetType() == typeof(String)) && typeof(T) == typeof(bool))
             {
                 obj = !isNullString(obj.ToString());
             }
             return (T)obj;
+        }
+
+        public string ToWinArgs(string input)
+        {
+            string args = "";
+            if (isNullString(input))
+                return args;
+            try
+            {
+                string[] strArray = input.Split(';');
+                foreach (string s in strArray)
+                {
+                    string temp = s.Replace('=', ':');
+                    args += prefix + temp + " ";
+                }
+            }
+            catch
+            {
+
+            }
+            return args;
         }
 
         public bool isNullString(string s)

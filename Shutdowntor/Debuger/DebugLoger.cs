@@ -33,7 +33,7 @@ namespace Shutdowntor.Debuger
         #endregion
 
         #region Methods
-        private string logFloder = "./log";
+        private string logFloder = "./debuglog";
         public string logFile;
         public DebugLoger()
         {
