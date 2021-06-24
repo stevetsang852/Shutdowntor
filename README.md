@@ -28,3 +28,6 @@ mm: Minute<br/>
 ss: Seconds<br/>
 
 Currently only support two actions, Shutdown or Reboot.
+
+
+[Buy me a coffee](http://buymeacoffee.com/YINpro)
