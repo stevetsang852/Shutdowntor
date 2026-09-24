@@ -62,6 +62,7 @@
     <Compile Include="Common\ActionParser.cs" />
     <Compile Include="Common\ArgsReader.cs" />
     <Compile Include="Common\Global.cs" />
+    <Compile Include="Common\ScheduleClock.cs" />
     <Compile Include="Common\StartupOptions.cs" />
     <Compile Include="Control\ComputerController.cs" />
     <Compile Include="Control\TextWriter.cs" />

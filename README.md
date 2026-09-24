@@ -29,9 +29,11 @@ Shutdowntor.exe /hide /auto:s /datetime:20260924180000
 
 Only one instance can run. A second launch focuses the existing window.
 
+The deadline uses local wall-clock time. If Windows sleeps past the target, the action runs after resume instead of waiting for leftover timer ticks.
+
 ## Tests and CI
 
-Unit tests cover argument parsing and action name mapping. They do **not** execute shutdown or reboot.
+Unit tests cover argument parsing, action mapping, and deadline math. They do **not** execute shutdown or reboot.
 
 ```bash
 dotnet test Shutdowntor.Tests/Shutdowntor.Tests.csproj --configuration Release
