@@ -1,0 +1,19 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - uses: microsoft/setup-msbuild@v2
+      - name: Restore and build
+        run: msbuild Shutdowntor.sln /restore /p:Configuration=Release
+      - name: Test
+        run: dotnet test Shutdowntor.Tests/Shutdowntor.Tests.csproj --configuration Release --no-restore
