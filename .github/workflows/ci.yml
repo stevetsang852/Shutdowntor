@@ -16,4 +16,4 @@ jobs:
       - name: Restore and build
         run: msbuild Shutdowntor.sln /restore /p:Configuration=Release
       - name: Test
-        run: dotnet test Shutdowntor.Tests/Shutdowntor.Tests.csproj --configuration Release --no-restore
+        run: dotnet test Shutdowntor.Tests/Shutdowntor.Tests.csproj --configuration Release
