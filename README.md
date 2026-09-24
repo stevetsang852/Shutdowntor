@@ -1,33 +1,40 @@
 # Shutdowntor
 
-Function:<br/>
-Scheduled the action to do. And do it.
+Windows tray app that schedules a local **shutdown** or **reboot**.
 
-IDE:  Visual Studio 2019
+IDE: Visual Studio 2019+  
+Target: .NET Framework 4.7.2 (WinForms)
 
-Support args call by cmd;
+## Arguments
 
-Args options(optional):
+```text
+/debug
+/hide
+/auto:s
+/auto:r
+/datetime:yyyyMMddHHmmss
+```
 
-/debug<br/>
-Write debug log.
+- `/auto:s` or `/auto:shutdown` — start countdown as shutdown
+- `/auto:r` or `/auto:reboot` — start countdown as reboot
+- `/datetime:20260924180000` — target local time
+- `/hide` — start in the tray
+- `/debug` — write debug log
 
-/hide<br/>
-Hide the UI, but you can find the app by small icon.
+Example:
 
-/auto:[r]/[s]<br/>
-Auto start the app r for reboot, s for shutdown
+```text
+Shutdowntor.exe /hide /auto:s /datetime:20260924180000
+```
 
-/datetime:[yyyyMMddHHmmss]<br/>
-Set the date and time for do the action.<br/>
-yyyy: Year<br/>
-MM: Month<br/>
-dd: Day<br/>
-HH: Hour<br/>
-mm: Minute<br/>
-ss: Seconds<br/>
+Only one instance can run. A second launch focuses the existing window.
 
-Currently only support two actions, Shutdown or Reboot.
+## Tests and CI
 
+Unit tests cover argument parsing and action name mapping. They do **not** execute shutdown or reboot.
 
-[Buy me a coffee](http://buymeacoffee.com/YINpro)
+```bash
+dotnet test Shutdowntor.Tests/Shutdowntor.Tests.csproj --configuration Release
+```
+
+GitHub Actions (`.github/workflows/ci.yml`) builds the solution on `windows-latest` and runs those tests.
